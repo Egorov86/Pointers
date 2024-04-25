@@ -50,4 +50,6 @@ void main()
 	}
 	cout << endl;
 	delete[] arr; // отчищаем память
+	delete[] even;
+	delete[] odd;
 }
