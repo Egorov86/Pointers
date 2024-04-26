@@ -12,7 +12,7 @@ void main()
 	cout << "Исходный массив на 10 рандомных элементов: " << endl;
 	for (int i = 0; i < n; i++)
 	{
-		*(arr + i) = rand() % 100;;
+		*(arr + i) = rand() % 100;
 	}
 	for (int i = 0; i < n; i++)
 	{
