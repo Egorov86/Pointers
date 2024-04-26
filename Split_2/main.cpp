@@ -1,4 +1,4 @@
-// Split_2
+п»ї// Split_2
 #include<iostream>
 using namespace std;
 
@@ -14,21 +14,21 @@ void main()
 	FillRand(arr, n);
 	Print(arr, n);
 
-	//1)Вычислять количество четных и нечетных элементов
+	//1)Р’С‹С‡РёСЃР»СЏС‚СЊ РєРѕР»РёС‡РµСЃС‚РІРѕ С‡РµС‚РЅС‹С… Рё РЅРµС‡РµС‚РЅС‹С… СЌР»РµРјРµРЅС‚РѕРІ
 	int even_count = 0;
 	int odd_count = 0;
 	for (int i = 0; i < n; i++)
 	{
 		arr[i] % 2 == 0? even_count++: odd_count++;
 	}
-	cout << "Количество чётных элементов: " << even_count << endl;
-	cout << "Количество нечётных элементов: " << odd_count << endl;
+	cout << "РљРѕР»РёС‡РµСЃС‚РІРѕ С‡С‘С‚РЅС‹С… СЌР»РµРјРµРЅС‚РѕРІ: " << even_count << endl;
+	cout << "РљРѕР»РёС‡РµСЃС‚РІРѕ РЅРµС‡С‘С‚РЅС‹С… СЌР»РµРјРµРЅС‚РѕРІ: " << odd_count << endl;
 
-	//2) Выделяем память для массивов:
+	//2) Р’С‹РґРµР»СЏРµРј РїР°РјСЏС‚СЊ РґР»СЏ РјР°СЃСЃРёРІРѕРІ:
 	int* even_arr = new int[even_count];
 	int* odd_arr = new int[odd_count];
 
-	//3) Копируем чётные и нечётные элементы в соответствующие массивы
+	//3) РљРѕРїРёСЂСѓРµРј С‡С‘С‚РЅС‹Рµ Рё РЅРµС‡С‘С‚РЅС‹Рµ СЌР»РµРјРµРЅС‚С‹ РІ СЃРѕРѕС‚РІРµС‚СЃС‚РІСѓСЋС‰РёРµ РјР°СЃСЃРёРІС‹
 	for (int i = 0, j = 0, k = 0; i < n; i++)
 	{
 			//arr[i] % 2 == 0?even_arr[j] = arr[i]: odd_arr[k] = arr[i];
@@ -38,12 +38,12 @@ void main()
 		(arr[i] % 2 ? odd_arr[j++] : even_arr[k++]) = arr[i];
 	}
 
-	//4) Вывод результатов:
+	//4) Р’С‹РІРѕРґ СЂРµР·СѓР»СЊС‚Р°С‚РѕРІ:
 
 	Print(even_arr, even_count);
 	Print(odd_arr, odd_count);
 
-	//5) Удаление массивов:
+	//5) РЈРґР°Р»РµРЅРёРµ РјР°СЃСЃРёРІРѕРІ:
 	delete[] even_arr;
 	delete[] odd_arr;
 }
@@ -56,7 +56,7 @@ void FillRand(int arr[], const int n)
 		arr[i] = rand() % 100;
 	}
 }
-void Print(int arr[], const int n) //Вывод массивов на экран
+void Print(int arr[], const int n) //Р’С‹РІРѕРґ РјР°СЃСЃРёРІРѕРІ РЅР° СЌРєСЂР°РЅ
 {
 	for (int i = 0; i < n; i++)
 	{
