@@ -6,6 +6,7 @@ using namespace std;
 
 void FillRand(int arr[], const int n);
 void Print(int arr[], const int n);
+//void AddFillRand(int add_arr[], int arr[], int n, int value);
 
 void main()
 {
@@ -13,17 +14,22 @@ void main()
 	int n;
 	cout << "Введите размер массива: "; cin >> n;
 	int* arr = new int[n];
-	
 	FillRand(arr, n);
 	Print(arr, n);
-
 	int value;
 	cout << "Введите добавляемое значение: "; cin >> value;
-	arr[n] = value;
+	int* add_arr = new int[n + 1];
+	for (int i = 0, j=0; i < n; i++)
+	{
+		add_arr[i] = arr[i];
+	}
+	delete[] arr;
+	arr = add_arr;
 	n++;
+	arr[n - 1] = value;
 	Print(arr, n);
 
-	delete[] arr;
+	delete[] add_arr;
 }
 
 void FillRand(int arr[], const int n)
@@ -35,6 +41,16 @@ void FillRand(int arr[], const int n)
 		*(arr + i) = rand() % 100;
 	}
 }
+/*void AddFillRand(int add_arr[], int arr[],int n, int value)
+{
+	for (int i = 0; i < n; i++)
+	{
+		add_arr[i] = arr[i];
+	}
+	delete[] arr;
+	arr = add_arr;
+	n++;
+}*/
 void Print(int arr[], const int n) //Вывод массивов на экран
 {
 	for (int i = 0; i < n; i++)
