@@ -5,8 +5,7 @@ using namespace std;
 #define tab "\t"
 
 void FillRand(int arr[], const int n);
-void Print(int arr[], const int n);
-//void AddFillRand(int add_arr[], int arr[], int n, int value);
+void Print(int arr[], const int n, int value = 0);
 
 void main()
 {
@@ -18,17 +17,16 @@ void main()
 	Print(arr, n);
 	int value;
 	cout << "Введите добавляемое значение: "; cin >> value;
-	int* add_arr = new int[n + 1];
-	for (int i = 0, j=0; i < n; i++)
-	{
+	int* add_arr = new int[n + 1];   // создаю новый массив в него копирую старый массив,
+	for (int i = 0; i < n; i++)      // удаляю старый. В новый массив с данными старого массива
+	{                                // добавляю последний элемент с клавиатуры.
 		add_arr[i] = arr[i];
 	}
 	delete[] arr;
 	arr = add_arr;
 	n++;
 	arr[n - 1] = value;
-	Print(arr, n);
-
+	Print(add_arr, n, value);
 	delete[] add_arr;
 }
 
@@ -41,17 +39,18 @@ void FillRand(int arr[], const int n)
 		*(arr + i) = rand() % 100;
 	}
 }
-/*void AddFillRand(int add_arr[], int arr[],int n, int value)
+/*void AddFillRand(int add_arr[], int arr[], int n, int value)
 {
-	for (int i = 0; i < n; i++)
+	for (int i = 0, j = 0; i < n; i++)
 	{
 		add_arr[i] = arr[i];
 	}
 	delete[] arr;
 	arr = add_arr;
 	n++;
+	arr[n - 1] = value;
 }*/
-void Print(int arr[], const int n) //Вывод массивов на экран
+void Print(int arr[], const int n, int value) //Вывод массивов на экран
 {
 	for (int i = 0; i < n; i++)
 	{
