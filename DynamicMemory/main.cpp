@@ -388,12 +388,12 @@ void Push_col_back(int** arr, const int ROWS, int& COLS)
 {
 	for (int i = 0; i < ROWS; i++)
 	{
-		int* buffer = new int[COLS+1]{};
-		for (int j = 0; j < COLS; j++)buffer[j] = arr[i][j];
-		delete[] arr[i];
-		arr[i] = buffer;
+		int* buffer = new int[COLS+1]{}; // Создание буферной строки
+		for (int j = 0; j < COLS; j++)buffer[j] = arr[i][j];  // копируем значения из исходной строки в буферную
+		delete[] arr[i]; // удаляем старую строку
+		arr[i] = buffer; // подменяем адрес строки в массиве указателей
 	}
-	COLS++;
+	COLS++; //добавляем столбец
 }
 
 void Push_col_front(int** arr, const int ROWS, int& COLS)
