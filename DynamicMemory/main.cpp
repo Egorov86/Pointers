@@ -8,13 +8,18 @@ using std::endl;
 #define tab "\t"
 
 void FillRand(int arr[], const int n, int minRand=0, int maxRand=100);
+void FillRand(double  arr[], const int n, int minRand=0, int maxRand=100);
+void FillRand(char  arr[], const int n, int minRand=0, int maxRand=100);
 void FillRand(int** arr, const int ROWS, const int COLS);
+void FillRand(double** arr, const int ROWS, const int COLS);
 void Print(int arr[], const int n);
-void Print(int** arr, const int ROWS, const int COLS);
+template <typename T>void Print(T** arr, const int ROWS, const int COLS);
 void Clear(int** arr, const int ROWS);
 
 int* push_back(int arr[], int& n, int value);
+double* push_back(double arr[], int& n, double value);
 int* push_front(int arr[], int& n, int value);
+double* push_front(double arr[], int& n, double value);
 int* pop_back(int arr[], int& n);
 int* pop_front(int arr[], int& n);
 int* insert(int arr[], int& n, int index, int value);
@@ -52,6 +57,7 @@ void main()
 	FillRand(arr, n);
 	Print(arr, n);
 
+	//int value;
 	int value;
 	int index;
 	cout << "Введите добавляемое значение в конец массива: "; cin >> value;
@@ -60,7 +66,7 @@ void main()
 	cout << "Введите добавляемое значение в начало массива: "; cin >> value;
 	arr = push_front(arr, n, value);
 	Print(arr, n);
-	cout << "Удаление последнего элемента: "<< endl;
+	cout << "Удаление последнего элемента: " << endl;
 	arr = pop_back(arr, n);
 	Print(arr, n);
 	cout << "Удаление нулевого элемента: " << endl;
@@ -101,7 +107,7 @@ void main()
 	int index = 0;
 	FillRand(arr, ROWS, COLS);
 	Print(arr, ROWS, COLS);
-	cout << "добавление последней стороки в массив: " << endl;
+	/*cout << "добавление последней стороки в массив: " << endl;
 	arr = Push_row_back(arr, ROWS, COLS);
 	FillRand(arr[ROWS-1], COLS, 100, 1000);
 	Print(arr, ROWS, COLS);
@@ -160,7 +166,7 @@ void main()
 	} while (index < 0 || index > COLS);
 	Erase_col(arr, ROWS, COLS, index);
 	Print(arr, ROWS, COLS);
-	Clear(arr, ROWS);
+	Clear(arr, ROWS);*/
 #endif // DYNAMIC_MEMORY_2
 
 #ifdef PREFORMANCE_CHECK
@@ -192,6 +198,23 @@ void FillRand(int arr[], const int n, int minRand, int maxRand)
 		*(arr + i) = rand() % (maxRand-minRand)+minRand;
 	}
 }
+void FillRand(double arr[], const int n, int minRand, int maxRand)
+{
+	for (int i = 0; i < n; i++)
+	{
+		minRand *= 10;
+		maxRand *= 10;
+		*(arr + i) = rand() % (maxRand - minRand) + minRand;
+		*(arr + i) /= 1000;
+	}
+}
+void FillRand(char arr[], const int n, int minRand, int maxRand)
+{
+	for (int i = 0; i < n; i++)
+	{
+		*(arr + i) = rand()% 26;
+	}
+}
 void FillRand(int** arr, const int ROWS, const int COLS)
 {
 	for (int i = 0; i < ROWS; i++)
@@ -199,6 +222,18 @@ void FillRand(int** arr, const int ROWS, const int COLS)
 		for (int j = 0; j < COLS; j++)
 		{
 			arr[i][j] = rand() % 100;
+		}
+	}
+}
+void FillRand(double** arr, const int ROWS, const int COLS)
+{
+	for (int i = 0; i < ROWS; i++)
+	{
+		for (int j = 0; j < COLS; j++)
+		{
+			arr[i][j] *= 100;
+			arr[i][j] = rand() % 100;
+			arr[i][j] /= 100;
 		}
 	}
 }
@@ -211,7 +246,16 @@ void Print(int arr[], const int n) //Вывод массивов на экран
 	}
 	cout << endl;
 }
-void Print(int** arr, const int ROWS, const int COLS)
+void Print(double arr[], const int n) //Вывод массивов на экран
+{
+	for (int i = 0; i < n; i++)
+	{
+		//Обращение к элементам массива через опертор индексирования - []:
+		cout << arr[i] << tab;
+	}
+	cout << endl;
+}
+template <typename T>void Print(T** arr, const int ROWS, const int COLS)
 {
 	for (int i = 0; i < ROWS; i++)
 	{
@@ -237,9 +281,36 @@ int* push_back(int arr[], int& n, int value)
 	//Print(arr, n);
 	return arr;
 }
+double* push_back(double arr[], int& n, double value)
+{
+	double* buffer = new double[n + 1];
+	for (int i = 0; i < n; i++)
+	{
+		buffer[i] = arr[i];
+	}
+	delete[] arr;
+	arr = buffer;
+	arr[n] = value;
+	n++;
+	//Print(arr, n);
+	return arr;
+}
 int* push_front(int arr[], int& n, int value)
 {
 	int* buffer = new int[n + 1];
+	for (int i = 0; i < n; i++)
+	{
+		buffer[i + 1] = arr[i];
+	}
+	delete[] arr;
+	arr = buffer;
+	arr[0] = value;
+	n++;
+	return arr;
+}
+double* push_front(double arr[], int& n, double value)
+{
+	double* buffer = new double[n + 1];
 	for (int i = 0; i < n; i++)
 	{
 		buffer[i + 1] = arr[i];
