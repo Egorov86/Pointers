@@ -356,13 +356,13 @@ template <typename T> T* erase(T arr[], int& n, int index)
 	n--;
 	return arr;
 }
-int** Allocate(const int ROWS, const int COLS)
+template <typename T> T** Allocate(const int ROWS, const int COLS)
 {
-	int** arr = new int* [ROWS];
+	T** arr = new T* [ROWS];
 	//2) Выделяем память под строки:
 	for (int i = 0; i < ROWS; i++)
 	{
-		arr[i] = new int[COLS];
+		arr[i] = new T[COLS];
 	}
 	return arr;
 }
