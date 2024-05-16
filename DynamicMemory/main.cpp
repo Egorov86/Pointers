@@ -53,8 +53,8 @@ void main()
 #ifdef DYNAMIC_MEMORY_1
 	int n = 0;
 	cout << "Введите размер массива: "; cin >> n;
-	typedef char DataType;
-	DataType* arr = new DataType[n];
+	typedef char DataType;           // директива typedef дает псевдоним (DataType) 
+	DataType* arr = new DataType[n]; // существующему типу данных в данном случ"char"
 
 	FillRand(arr, n);
 	Print(arr, n);
@@ -103,20 +103,21 @@ void main()
 	int COLS;
 	cout << "Введите количество строк: "; cin >> ROWS;
 	cout << "Введите количество элементов строки: "; cin >> COLS;
-	typedef double DataType;
+	// Для указания компилятору используем <int>, это нужно чтобы компилятор знал
+	// какого типа данных создавать массив иначе можем столкнуться с проблемой вывода "type deduction"
 	//int** arr = Allocate <int>(ROWS, COLS);
-	DataType** arr = Allocate <DataType>(ROWS, COLS);
-	//char** arr = Allocate <char>(ROWS, COLS);
+	//double** arr = Allocate <double>(ROWS, COLS);
+	char** arr = Allocate <char>(ROWS, COLS);
 	int index = 0;
 	FillRand(arr, ROWS, COLS);
 	Print(arr, ROWS, COLS);
 	cout << "добавление последней стороки в массив: " << endl;
 	arr = Push_row_back(arr, ROWS, COLS);
-	FillRand(arr[ROWS-1], COLS, 100, 1000);
+	FillRand(arr[ROWS-1], COLS);
 	Print(arr, ROWS, COLS);
 	cout << "добавление нулевой стороки в массив: " << endl;
 	arr = Push_row_front(arr, ROWS, COLS);
-	FillRand(arr[0], COLS, 100, 1000);
+	FillRand(arr[0], COLS);
 	Print(arr, ROWS, COLS);
 	do
 	{
@@ -125,7 +126,7 @@ void main()
 
 	} while (index < 0 || index > ROWS);
 	arr = Insert_row(arr, ROWS, COLS, index);
-	FillRand(arr[index], COLS, 100, 1000);
+	FillRand(arr[index], COLS);
 	Print(arr, ROWS, COLS);
 	cout << "Удаление последней строки в массиве: " << endl;
 	arr = Pop_row_back(arr, ROWS, COLS);
@@ -253,7 +254,7 @@ void FillRand(char** arr, const int ROWS, const int COLS)
 	{
 		for (int j = 0; j < COLS; j++)
 		{
-			arr[i][j] = 'A' + rand() % 26;
+			arr[i][j] =  rand();
 		}
 	}
 }
