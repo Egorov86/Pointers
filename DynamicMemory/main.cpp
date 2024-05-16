@@ -41,8 +41,6 @@ template <typename T>void Pop_col_back(T** arr, const int ROWS, int& COLS);
 template <typename T>void Pop_col_front(T** arr, const int ROWS, int& COLS);
 template <typename T>void Erase_col(T** arr, const int ROWS, int& COLS, int index);
 
-
-
 //#define DYNAMIC_MEMORY_1
 #define DYNAMIC_MEMORY_2
 //#define PREFORMANCE_CHECK
@@ -190,8 +188,6 @@ void main()
 	Clear(arr, ROWS);
 	cout << "Memory clean" << endl;
 #endif // PREFORMANCE_CHECK
-
-
 
 }
 
@@ -385,7 +381,6 @@ template <typename T> T** Push_row_back(T** arr, int& ROWS, const int COLS)
 	ROWS++;
 	return buffer;
 }
-
 template <typename T> T** Push_row_front(T** arr, int& ROWS, int COLS)
 {
 	T** buffer = new T* [ROWS + 1];
@@ -441,7 +436,6 @@ template <typename T>void Push_col_back(T** arr, const int ROWS, int& COLS)
 	}
 	COLS++; //добавляем столбец
 }
-
 template <typename T>void Push_col_front(T** arr, const int ROWS, int& COLS)
 {
 	for (int i = 0; i < ROWS; i++)
@@ -453,7 +447,6 @@ template <typename T>void Push_col_front(T** arr, const int ROWS, int& COLS)
 	}
 	COLS++;
 }
-
 template <typename T>void Insert_col(T** arr, const int ROWS, int& COLS, int index)
 {
 	for (int i = 0; i < ROWS; i++)
