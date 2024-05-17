@@ -1,4 +1,4 @@
-﻿//DynamicMemory
+﻿//DynamicMemory DynamicTemplatedOptimisation
 #include<iostream>
 using namespace std;
 using std::cin;
@@ -96,7 +96,7 @@ int main()
 #endif // DYNAMIC_MEMORY_1
 
 #ifdef DYNAMIC_MEMORY_2
-	typedef int DataType;
+	typedef double DataType;
 	int ROWS;
 	int COLS;
 	cout << "Введите количество строк: "; cin >> ROWS;
@@ -334,77 +334,49 @@ template <typename T>void Clear(T** arr, const int ROWS)
 }
 template <typename T> T** Push_row_back(T** arr, int& ROWS, const int COLS)
 {
-	T** buffer = new T * [ROWS + 1]; //созд буфер массив указате
-	for (int i = 0; i < ROWS; i++)buffer[i] = arr[i]; // копируем строки из исх кода
-	delete[] arr;
-	//4 созд строку и добавл ee в массив
-	buffer[ROWS] = new T[COLS]{};
-	ROWS++;
-	return buffer;
+	return push_back(arr, ROWS, new T[COLS]{});
+	
 }
 template <typename T> T** Push_row_front(T** arr, int& ROWS, int COLS)
 {
-	T** buffer = new T * [ROWS + 1];
-	for (int i = 0; i < ROWS; i++)buffer[i + 1] = arr[i];
-	delete[] arr;
-	buffer[0] = new T[COLS]{};
-	ROWS++;
-	return buffer;
+	return push_front(arr, ROWS, new T[COLS]{});
+	
 }
 template <typename T> T** Insert_row(T** arr, int& ROWS, const int COLS, int index)
 {
-	T** buffer = new T * [ROWS + 1];
-	for (int i = 0; i < index; i++)buffer[i] = arr[i];
-	for (int i = ROWS; i > index; i--)buffer[i] = arr[i - 1];
-	delete[] arr;
-	buffer[index] = new T[COLS]{};
-	ROWS++;
-	return buffer;
+	return insert(arr, ROWS, index, new T[COLS]{});
 }
 template <typename T> T** Pop_row_back(T** arr, int& ROWS, const int COLS)
 {
-	T** buffer = new T * [--ROWS]; // переопеределяем массив указателей
-	for (int i = 0; i < ROWS; i++)buffer[i] = arr[i];
-	delete[] arr[ROWS]; // удаляем удаляемую строку из памяти 
-	delete[] arr;
-	return buffer;
+	delete[] arr[ROWS-1]; // удаляем удаляемую строку из памяти 
+	return pop_back(arr, ROWS);
 }
 template <typename T> T** Pop_row_front(T** arr, int& ROWS, const int COLS)
 {
-	T** buffer = new T * [ROWS - 1];
-	for (int i = 0; i < ROWS; i++)buffer[i] = arr[i + 1];
-	delete[] arr;
-	ROWS--;
-	return buffer;
+	delete[] arr[0];
+	// удаляем удаляемую строку из памяти 
+	return pop_front(arr, ROWS);
 }
 template <typename T> T** Erase_row(T** arr, int& ROWS, const int COLS, int index)
 {
-	T** buffer = new T * [ROWS - 1];
-	for (int i = 0; i < index; i++)buffer[i] = arr[i];
-	for (int i = index; i < ROWS; i++)buffer[i] = arr[i + 1];
-	delete[] arr;
-	ROWS--;
-	return buffer;
+	delete[] arr[index]; // удаляем удаляемую строку из памяти 
+	return erase(arr, ROWS, index);
 }
 template <typename T>void Push_col_back(T** arr, const int ROWS, int& COLS)
 {
 	for (int i = 0; i < ROWS; i++)
 	{
-		T* buffer = new T[COLS + 1]{}; // Создание буферной строки
-		for (int j = 0; j < COLS; j++)buffer[j] = arr[i][j];  // копируем значения из исходной строки в буферную
-		delete[] arr[i]; // удаляем старую строку
-		arr[i] = buffer; // подменяем адрес строки в массиве указателей
+		arr[i] = push_back(arr[i], COLS, T());
+		COLS--;
 	}
-	COLS++; //добавляем столбец
+	COLS++;
 }
 template <typename T>void Push_col_front(T** arr, const int ROWS, int& COLS)
 {
 	for (int i = 0; i < ROWS; i++)
 	{
-		T* buffer = new T[COLS + 1]{};
-		for (int j = 0; j < COLS; j++)buffer[j + 1] = arr[i][j];
-		delete[] arr[i];
-		arr[i] = buffer;
+		arr[i] = push_front(arr[i], COLS, T());
+		COLS--;
 	}
 	COLS++;
 }
@@ -412,11 +384,8 @@ template <typename T>void Insert_col(T** arr, const int ROWS, int& COLS, int ind
 {
 	for (int i = 0; i < ROWS; i++)
 	{
-		T* buffer = new T[COLS + 1]{};
-		for (int j = 0; j < index; j++)buffer[j] = arr[i][j];
-		for (int j = index; j < COLS; j++)buffer[j + 1] = arr[i][j];
-		delete[] arr[i];
-		arr[i] = buffer;
+		arr[i] = insert(arr[i], COLS, index, T());
+		COLS--;
 	}
 	COLS++;
 }
