@@ -96,6 +96,7 @@ int main()
 #endif // DYNAMIC_MEMORY_1
 
 #ifdef DYNAMIC_MEMORY_2
+	typedef int DataType;
 	int ROWS;
 	int COLS;
 	cout << "Введите количество строк: "; cin >> ROWS;
@@ -104,7 +105,7 @@ int main()
 	// какого типа данных создавать массив иначе можем столкнуться с проблемой вывода "type deduction"
 	//int** arr = Allocate <int>(ROWS, COLS);
 	//double** arr = Allocate <double>(ROWS, COLS);
-	char** arr = Allocate <char>(ROWS, COLS);
+	DataType** arr = Allocate <DataType>(ROWS, COLS);
 	int index = 0;
 	FillRand(arr, ROWS, COLS);
 	Print(arr, ROWS, COLS);
@@ -333,8 +334,8 @@ template <typename T>void Clear(T** arr, const int ROWS)
 }
 template <typename T> T** Push_row_back(T** arr, int& ROWS, const int COLS)
 {
-	T** buffer = new T * [ROWS + 1];
-	for (int i = 0; i < ROWS; i++)buffer[i] = arr[i];
+	T** buffer = new T * [ROWS + 1]; //созд буфер массив указате
+	for (int i = 0; i < ROWS; i++)buffer[i] = arr[i]; // копируем строки из исх кода
 	delete[] arr;
 	//4 созд строку и добавл ee в массив
 	buffer[ROWS] = new T[COLS]{};
